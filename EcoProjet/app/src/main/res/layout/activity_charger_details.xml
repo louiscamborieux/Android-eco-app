@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/obeservation_titre"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ob"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ChargerDetailsActivity">
+
+
+        <TextView
+            android:id="@+id/operateur_titre"
+            android:textIsSelectable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/operator"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/operateur_data"
+            android:layout_width="0dp"
+            android:textIsSelectable="true"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/operateur_titre"
+            app:layout_constraintTop_toTopOf="@+id/operateur_titre"
+            app:layout_constraintWidth_percent="0.70" />
+
+        <TextView
+            android:id="@+id/adresse"
+            android:layout_width="0dp"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/map_marker_resize"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="@string/adresse"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/amenageur_titre"
+            app:layout_constraintTop_toBottomOf="@+id/amenageur_titre"
+            app:layout_constraintWidth_percent="0.9" />
+
+        <TextView
+            android:id="@+id/source_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/source"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/source_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/source_titre"
+            app:layout_constraintStart_toEndOf="@+id/source_titre" />
+
+        <TextView
+            android:id="@+id/enseigne_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/enseign_name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/operateur_titre"
+            app:layout_constraintTop_toBottomOf="@+id/operateur_titre" />
+
+        <TextView
+            android:id="@+id/enseigne_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/enseigne_titre"
+            app:layout_constraintTop_toTopOf="@+id/enseigne_titre" />
+
+        <TextView
+            android:id="@+id/section_info_titre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"
+            android:text="@string/info_category_title"
+            android:textSize="27sp"
+            app:layout_constraintStart_toStartOf="@+id/adresse"
+            app:layout_constraintTop_toBottomOf="@+id/adresse" />
+
+        <TextView
+            android:id="@+id/nb_pdc_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:text="@string/pdc_number"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/section_info_titre"
+            app:layout_constraintTop_toBottomOf="@+id/section_info_titre" />
+
+        <TextView
+            android:id="@+id/nb_pdc_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/nb_pdc_titre"
+            app:layout_constraintStart_toEndOf="@+id/nb_pdc_titre" />
+
+        <TextView
+            android:id="@+id/puiss_max_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/puiss_max"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/nb_pdc_titre"
+            app:layout_constraintTop_toBottomOf="@+id/nb_pdc_titre" />
+
+        <TextView
+            android:id="@+id/puiss_max_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/puiss_max_titre"
+            app:layout_constraintStart_toEndOf="@+id/puiss_max_titre" />
+
+        <TextView
+            android:id="@+id/type_prise_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/type_prise"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/puiss_max_titre"
+            app:layout_constraintTop_toBottomOf="@+id/puiss_max_titre" />
+
+        <TextView
+            android:id="@+id/type_prise_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/type_prise_titre"
+            app:layout_constraintStart_toEndOf="@+id/type_prise_titre" />
+
+        <TextView
+            android:id="@+id/acces_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/is_paid_title"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/type_prise_titre"
+            app:layout_constraintTop_toBottomOf="@+id/type_prise_titre" />
+
+        <TextView
+            android:id="@+id/dispo_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/dispo_titre"
+            app:layout_constraintStart_toEndOf="@+id/dispo_titre" />
+
+        <TextView
+            android:id="@+id/acces_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/acces_titre"
+            app:layout_constraintStart_toEndOf="@+id/acces_titre" />
+
+        <TextView
+            android:id="@+id/dispo_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/availlabillity_info"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/acces_titre"
+            app:layout_constraintTop_toBottomOf="@+id/acces_titre" />
+
+        <TextView
+            android:id="@+id/maj_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/maj_titre"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/maj_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/update_date"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/source_data"
+            app:layout_constraintEnd_toStartOf="@+id/maj_data" />
+
+        <TextView
+            android:id="@+id/observation_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/observation"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/dispo_titre"
+            app:layout_constraintTop_toBottomOf="@+id/dispo_titre" />
+
+        <TextView
+            android:id="@+id/observations_data"
+            android:layout_width="0dp"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/observation_titre"
+            app:layout_constraintTop_toBottomOf="@+id/observation_titre"
+            app:layout_constraintWidth_percent="0.9" />
+
+        <Button
+            android:id="@+id/itinerary_button"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.75"
+            android:layout_height="75dp"
+            android:layout_marginTop="32dp"
+            android:drawableLeft="@drawable/maps_logo_resize"
+            android:text="@string/itinerary_maps"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/observations_data" />
+
+        <TextView
+            android:id="@+id/amenageur_titre"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/amenageur"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/enseigne_titre"
+            app:layout_constraintTop_toBottomOf="@+id/enseigne_titre" />
+
+        <TextView
+            android:id="@+id/amenageur_data"
+            android:layout_width="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/data_placeholder"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/amenageur_titre"
+            app:layout_constraintTop_toTopOf="@+id/amenageur_titre" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Pokemon</string>
+    <string name="app_name">com.example.pokemon.Pokemon</string>
+    <string name="bouton_centre">Télécharger les Pokemon</string>
+    <string name="menu_add_list">Ajouter liste</string>
+    <string name="menu_close_app">Quitter</string>
+    <string name="item_value">item_value</string>
+    <string name="bouton_retour">Retour</string>
 </resources>

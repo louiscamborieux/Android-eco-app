@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">EcoProjet</string>
+    <string name="station_name">Nom Station</string>
+    <string name="lat_abbr">lat :</string>
+    <string name="long_abbr">long :</string>
+    <string name="latitude_info">Latitude</string>
+    <string name="longitude_info">Longitude</string>
+    <string name="operator_name">Nom Opérateur</string>
+    <string name="is_paid">Payant</string>
+    <string name="adresse">Adresse</string>
+    <string name="not_connected">Vous n\'êtes pas connecté à Internet</string>
+    <string name="unable_load_data">Impossible de charger les données</string>
+    <string name="empty_info">Connectez-vous à Internet puis rafraichissez la page</string>
+    <string name="refresh_item">Rafraîchir</string>
+    <string name="data_placeholder">&lt;Données API&gt;</string>
+    <string name="pdc_number">Nombre de points de charge:</string>
+    <string name="enseign_name">Enseigne:</string>
+    <string name="operator">Opérateur:</string>
+    <string name="amenageur">Aménageur:</string>
+    <string name="station">Station:</string>
+    <string name="puiss_max">Puissance max:</string>
+    <string name="type_prise">Type prise:</string>
+    <string name="availlabillity_info">Disponibillité:</string>
+    <string name="observation">Observations</string>
+    <string name="update_date">Dernière MAJ:</string>
+    <string name="source">Source:</string>
+    <string name="is_paid_title">Accès:</string>
+    <string name="info_category_title">Informations</string>
+    <string name="itinerary_maps">Ouvrir itinéraire</string>
+    <string name="near_me">Près de moi</string>
+</resources>
