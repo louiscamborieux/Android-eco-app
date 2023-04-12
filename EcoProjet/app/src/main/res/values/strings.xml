@@ -28,4 +28,6 @@
     <string name="info_category_title">Informations</string>
     <string name="itinerary_maps">Ouvrir itinéraire</string>
     <string name="near_me">Près de moi</string>
+    <string name="cant_locate">Nous ne pouvons pas récupérer les bornes près de vous sans accès à la localisation.</string>
+    <string name="locate_info_need">La localisation est nécessaire pour trouver les bornes près de vous</string>
 </resources>

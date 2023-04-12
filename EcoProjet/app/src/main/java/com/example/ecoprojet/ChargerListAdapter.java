@@ -1,6 +1,8 @@
 package com.example.ecoprojet;
 
 import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,16 @@ import java.util.List;
 public class ChargerListAdapter extends ArrayAdapter<ChargerLink> {
     private Context mContext;
 
-    public ChargerListAdapter(Context context, int resource,  List<ChargerLink> objects) {
+    private Location location;
+
+    private  TextView tVDistance;
+
+    public ChargerListAdapter(Context context, int resource,  List<ChargerLink> objects, Location location) {
         super(context, resource, objects);
         mContext = context;
     }
+
+
 
     @Override
     public View getView(int postion, View convertView, ViewGroup parent) {
@@ -46,12 +54,22 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerLink> {
         tVNomOperateur.setText(données.getnOperateur());
         tVPayant.setText(données.getAccesRecharge());
 
-        if (données.getAccesRecharge().equalsIgnoreCase( "payant")) {
+        if (données.getAccesRecharge() != null && données.getAccesRecharge().equalsIgnoreCase( "payant")) {
             iVPayant.setImageResource(R.drawable.dollar_sign);
         }
         else {
             iVPayant.setImageResource(R.drawable.dollar_barre);
         }
+
+        tVDistance = convertView.findViewById(R.id.distanceTextView);
+        tVDistance.setVisibility(View.INVISIBLE);
+        if (getItem(postion).getDistance() != null) {
+            tVDistance.setText(Math.round(getItem(postion).getDistance())+ "m");
+            tVDistance.setVisibility(View.VISIBLE);
+        }
+
+
+
 
 
         return  convertView;

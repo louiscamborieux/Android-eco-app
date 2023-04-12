@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/locals_chargers_item"
-        android:icon="@android:drawable/ic_menu_mylocation"
+        android:icon="@drawable/ic_location_enabled"
         android:title="@string/near_me"
         app:showAsAction="ifRoom" />
 </menu>

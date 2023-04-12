@@ -77,15 +77,16 @@
         <TextView
             android:id="@+id/source_data"
             android:layout_width="wrap_content"
-            android:textIsSelectable="true"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/data_placeholder"
+            android:textIsSelectable="true"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/source_titre"
-            app:layout_constraintStart_toEndOf="@+id/source_titre" />
+            app:layout_constraintStart_toEndOf="@+id/source_titre"
+            app:layout_constraintTop_toTopOf="@+id/source_titre" />
 
         <TextView
             android:id="@+id/enseigne_titre"
@@ -318,6 +319,14 @@
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/amenageur_titre"
             app:layout_constraintTop_toTopOf="@+id/amenageur_titre" />
+
+        <TextView
+            android:id="@+id/debug_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id"
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="638dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,10 @@
 package com.example.ecoprojet;
 
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.view.View;
+
 import com.example.ecoprojet.Fields;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,6 +24,8 @@ public class ChargerLink {
     @SerializedName("fields")
     @Expose
     private Fields fields;
+
+    private Double distance;
 
     public String getId() {
         return id;
@@ -51,6 +57,15 @@ public class ChargerLink {
 
     public void setFields(Fields fields) {
         this.fields = fields;
+    }
+
+    public void setDistance(Location location) {
+            distance =  Math.sqrt(Math.pow(location.getLatitude()-fields.getYlatitude(),2)+Math.pow(location.getLongitude()-fields.getXlongitude(),2));
+            distance = CalculDistanceString.degrésToMètre(distance);
+    }
+
+    public Double getDistance() {
+        return  distance;
     }
 
 }

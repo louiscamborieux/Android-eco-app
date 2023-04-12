@@ -8,10 +8,13 @@ import androidx.core.content.ContextCompat;
 import android.app.AlertDialog;
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -49,6 +52,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity:LOG";
+    public static final int DISTANCE_MAX = 10000;
 
     private List<ChargerLink> listeChargeurs;
     private Map<String,Object> parametres;
@@ -60,8 +64,31 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLocationChanged(@NonNull Location location) {
+            Log.v(TAG,"loc changé ?");
             Toast.makeText(MainActivity.this,"lat:" + location.getLatitude()+" long:"+location.getLongitude(),Toast.LENGTH_SHORT).show();
+            boolean isLocationAlreadySet = locationUser != null;
+            locationUser = location;
+
+            if (!isLocationAlreadySet) {
+                rechercheParLocation(location);
+            }
         }
+
+
+    }
+
+    private void rechercheParLocation(@NonNull Location location) {
+        if (calculDistanceString == null) {
+            calculDistanceString = new CalculDistanceString(DISTANCE_MAX, location.getLatitude(), location.getLongitude());
+        }
+        else {
+            calculDistanceString.setLatitude(location.getLatitude());
+            calculDistanceString.setLongitude(location.getLongitude());
+        }
+        Log.v(TAG, calculDistanceString.getString());
+        whereBuilder.setClause(calculDistanceString);
+        parametres.put("where", whereBuilder.getString());
+        remplirDepuisAPI(true, parametres);
     }
 
     private  CustomLocationListener customLocationListener;
@@ -80,13 +107,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView tVTexteInfo;
 
     private LocationManager locationManager;
+    private Location locationUser;
 
     private boolean isDataLoaded = true;
+    private boolean isLocationEnabled = false;
 
 
     private int dernierElementAffiche = 0;
     private String sRecherche;
     private Recherche recherche;
+    private CalculDistanceString calculDistanceString;
+    private WhereClauseStringBuilder whereBuilder;
 
 
     private ConnectivityManager connectivityManager;
@@ -94,12 +125,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Integer offset = 0;
 
+    public static final String TABLE_NAME = "chargers";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         parametres = new HashMap<>();
         recherche = new Recherche();
+        whereBuilder = new WhereClauseStringBuilder();
+        whereBuilder.addClause(recherche);
+
         setContentView(R.layout.activity_main);
         tVTexteInfo = findViewById(R.id.emptyTextView);
         customLocationListener = new CustomLocationListener();
@@ -111,11 +147,25 @@ public class MainActivity extends AppCompatActivity {
 
         EditText eTSearch = findViewById(R.id.search_bar);
 
+        DbHelper bdd = new DbHelper(this);
+        SQLiteDatabase db = bdd.getWritableDatabase();
 
+        /*
+        ContentValues values = new ContentValues();
+        values.put("id",1);
+        db.insert("chargers",null,values);*/
+
+        String[] column = {"id"};
+        String[] valeurs = {"1"};
+        Cursor testCursor = db.query(TABLE_NAME,column,"id=?",valeurs,null,null,"id ASC");
+
+        if (testCursor.moveToFirst()) {
+            Toast.makeText(this,"DB OK "+ testCursor.getString(testCursor.getColumnIndexOrThrow("id")),Toast.LENGTH_SHORT).show();
+        }
 
 
         ListView lVChargeurs = findViewById(R.id.listeViewChargeurs);
-        adapter = new ChargerListAdapter(this, android.R.layout.simple_list_item_1, listeChargeurs);
+        adapter = new ChargerListAdapter(this, android.R.layout.simple_list_item_1, listeChargeurs,locationUser);
         lVChargeurs.setAdapter(adapter);
 
         afficherDonnées(infoReseau);
@@ -140,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Chargement des données...", Toast.LENGTH_SHORT).show();
                     isDataLoaded = false;
                     parametres.put("offset",offset);
-                    parametres.put("where", recherche.getString());
 
                     Log.v(TAG,"Appel api");
                     remplirDepuisAPI(false, parametres);
@@ -180,8 +229,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String termeRecherche = s.toString();
                 recherche.setGlobalSearchString(termeRecherche);
-                Log.v(TAG,"test recherche: "+recherche.getString());
-                parametres.put("where",recherche.getString());
+                parametres.put("where",whereBuilder.getString());
 
                 sRecherche = s.toString();
                 remplirDepuisAPI(true,parametres);
@@ -192,7 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void afficherDonnées(NetworkInfo infoReseau) {
         if (isConnected(infoReseau)) {
-            remplirDepuisAPI(false,parametres);
+            parametres.remove("offset");
+            remplirDepuisAPI(true,parametres);
             chargement = ProgressDialog.show(this, "",
                     "Chargement des données...", true);
             chargement.show();
@@ -211,7 +260,11 @@ public class MainActivity extends AppCompatActivity {
             demande_permission_location();
         }
         else {
+            Log.v(TAG,"location ok");
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5,customLocationListener);
+            if (locationUser != null) {
+                rechercheParLocation(locationUser);
+            }
         }
 
 
@@ -224,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
             new AlertDialog.Builder(this).setTitle("test")
-                    .setMessage("La localisation est nécessaire pour trouver les bornes près de vous")
+                    .setMessage(R.string.locate_info_need)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -252,10 +305,17 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PERMISSION_CODE_LOCATION) {
             if (grantResults.length >0  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this,"ok",Toast.LENGTH_SHORT).show();
+                Log.v (TAG,"ok");
                 getLocation();
             }
             else {
-                Toast.makeText(this,":<",Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(this).setMessage(R.string.cant_locate).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
             }
         }
         else {
@@ -282,19 +342,15 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         service = retrofit.create(APIService.class);
 
-        recherche.addTerme("acces_recharge","gratuit");
-        params.put("where",recherche.getString());
-        Log.v(TAG,recherche.getString());
-
-        if (params.get("where") == null || params.get("where").equals("")) {
+        if (params.get("where") == null || params.get("where").equals("null")) {
+            Log.v(TAG,"no where ?");
             params.remove("where");
         }
+        else {
+            Log.v(TAG,"where : "+params.get("where"));
+        }
 
-
-        Log.v(TAG,"appel api "+params.toString());
         Call<JsonResponseList> call = service.listCharger(params);
-
-
         call.enqueue(new Callback<JsonResponseList>() {
             @Override
             public void onResponse(Call<JsonResponseList> call, Response<JsonResponseList> response) {
@@ -302,10 +358,13 @@ public class MainActivity extends AppCompatActivity {
                     chargement.dismiss();
                 }
 
+                Log.v(TAG,parametres.toString());
+
                 if (!response.isSuccessful()) {
                     Toast.makeText(MainActivity.this,"Erreur"+response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
+
 
 
                 if (clear) {
@@ -315,7 +374,6 @@ public class MainActivity extends AppCompatActivity {
 
                 JsonResponseList chargerList = response.body();
                 if (chargerList.getChargers().isEmpty()) {
-                    Log.v(TAG,"fin de la liste");
                     isDataLoaded = false;
                     return;
                 }
@@ -337,8 +395,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void remplirListViewDepuisListe(JsonResponseList chargerList) {
-        for (ChargerLink chargerLink : chargerList.getChargers()) {
-            listeChargeurs.add(chargerLink );
+        if (locationUser != null ) {
+            for (ChargerLink chargerLink : chargerList.getChargers()) {
+                chargerLink.setDistance(locationUser);
+                listeChargeurs.add(chargerLink );
+            }
+        }
+        else {
+            for (ChargerLink chargerLink : chargerList.getChargers()) {
+                listeChargeurs.add(chargerLink);
+            }
         }
         adapter.notifyDataSetChanged();
     }
@@ -363,6 +429,23 @@ public class MainActivity extends AppCompatActivity {
             case R.id.refresh_menu_item: {
                 infoReseau = connectivityManager.getActiveNetworkInfo();
                 afficherDonnées(infoReseau);
+                break;
+            }
+            case R.id.locals_chargers_item:{
+                if (isLocationEnabled) {
+                    Toast.makeText(this,"localisation désactivée",Toast.LENGTH_SHORT).show();
+                    whereBuilder.removeClause(calculDistanceString);
+                    parametres.put("where",whereBuilder.getString());
+                    isLocationEnabled = false;
+                    item.setIcon(R.drawable.ic_location_enabled);
+                }
+                else {
+                    Toast.makeText(this,"localisation activée",Toast.LENGTH_SHORT).show();
+                    isLocationEnabled = true;
+                    item.setIcon(R.drawable.ic_location_disabled);
+                    getLocation();
+                }
+                break;
             }
         }
         return super.onOptionsItemSelected(item);

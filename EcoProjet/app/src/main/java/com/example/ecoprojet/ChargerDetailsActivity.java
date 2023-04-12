@@ -52,6 +52,7 @@ public class ChargerDetailsActivity extends AppCompatActivity {
         TextView tVSource = findViewById(R.id.source_data);
         TextView tVTypePrise = findViewById(R.id.type_prise_data);
         TextView tVAdresse = findViewById(R.id.adresse);
+        TextView debugID = findViewById(R.id.debug_id);
 
         Button buttonItineraire = findViewById(R.id.itinerary_button);
 
@@ -86,6 +87,8 @@ public class ChargerDetailsActivity extends AppCompatActivity {
                 tVTypePrise.setText(champs.getTypePrise());
                 tVDispo.setText(champs.getAccessibilite());
                 tVAdresse.setText(champs.getAdStation());
+
+                debugID.setText(chargeurInfo.getId());
 
                 latitude = champs.getYlatitude();
                 longitude = champs.getXlongitude();

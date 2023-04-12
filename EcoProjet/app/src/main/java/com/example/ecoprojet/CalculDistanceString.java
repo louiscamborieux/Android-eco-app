@@ -23,6 +23,20 @@ public class CalculDistanceString extends WhereClauseElement {
     }
 
     public String getString() {
-        return "where= ((xlongitude- "+longitude+")*(xlongitude- "+longitude+"))  -- ((ylatitude- "+latitude+")*(ylatitude- "+latitude+"))  < "+Math.pow(degrésToMètre(distance),2);
+        return "((xlongitude- "+longitude+")*(xlongitude- "+longitude+"))  -- ((ylatitude- "+latitude+")*(ylatitude- "+latitude+"))  < "+Math.pow(mètreToDegrés(distance),2);
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
