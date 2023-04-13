@@ -30,4 +30,9 @@
     <string name="near_me">Près de moi</string>
     <string name="cant_locate">Nous ne pouvons pas récupérer les bornes près de vous sans accès à la localisation.</string>
     <string name="locate_info_need">La localisation est nécessaire pour trouver les bornes près de vous</string>
+    <string name="units_info">Type des unités</string>
+    <string name="imperial">mi, ft</string>
+    <string name="metric">km, m</string>
+    <string name="save">Enregistrer</string>
+    <string name="settings">Paramètres</string>
 </resources>

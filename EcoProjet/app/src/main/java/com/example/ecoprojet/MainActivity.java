@@ -8,12 +8,11 @@ import androidx.core.content.ContextCompat;
 import android.app.AlertDialog;
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
@@ -53,11 +52,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity:LOG";
     public static final int DISTANCE_MAX = 10000;
+    public static final int PARAM_CODE = 42;
+
+    private SharedPreferences sharedPreferences ;
 
     private List<ChargerLink> listeChargeurs;
     private Map<String,Object> parametres;
 
-    private ArrayAdapter<ChargerLink> adapter;
+    private ChargerListAdapter adapter;
 
 
     class CustomLocationListener implements LocationListener {
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
     private Recherche recherche;
     private CalculDistanceString calculDistanceString;
     private WhereClauseStringBuilder whereBuilder;
+    private EditText eTSearch;
+    private Integer unites;
 
 
     private ConnectivityManager connectivityManager;
@@ -135,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
         recherche = new Recherche();
         whereBuilder = new WhereClauseStringBuilder();
         whereBuilder.addClause(recherche);
+        sharedPreferences = getApplicationContext().getSharedPreferences(ParametresActivity.PREFERENCES_NAME,Context.MODE_PRIVATE);
+
+        unites = sharedPreferences.getInt(ParametresActivity.UNITS_KEY,0);
+
+
 
         setContentView(R.layout.activity_main);
         tVTexteInfo = findViewById(R.id.emptyTextView);
@@ -145,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         infoReseau = connectivityManager.getActiveNetworkInfo();
 
-        EditText eTSearch = findViewById(R.id.search_bar);
+        eTSearch = findViewById(R.id.search_bar);
+        eTSearch.setEnabled(false);
 
         DbHelper bdd = new DbHelper(this);
         SQLiteDatabase db = bdd.getWritableDatabase();
@@ -153,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         ContentValues values = new ContentValues();
         values.put("id",1);
-        db.insert("chargers",null,values);*/
+        db.insert("chargers",null,values);
 
         String[] column = {"id"};
         String[] valeurs = {"1"};
@@ -161,11 +171,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (testCursor.moveToFirst()) {
             Toast.makeText(this,"DB OK "+ testCursor.getString(testCursor.getColumnIndexOrThrow("id")),Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
 
         ListView lVChargeurs = findViewById(R.id.listeViewChargeurs);
-        adapter = new ChargerListAdapter(this, android.R.layout.simple_list_item_1, listeChargeurs,locationUser);
+        adapter = new ChargerListAdapter(this, android.R.layout.simple_list_item_1, listeChargeurs,unites);
         lVChargeurs.setAdapter(adapter);
 
         afficherDonnées(infoReseau);
@@ -379,7 +389,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 remplirListViewDepuisListe(chargerList);
+
                 isDataLoaded = true;
+                eTSearch.setEnabled(true);
 
             }
 
@@ -447,8 +459,31 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             }
+            case R.id.settings_menu_item: {
+                Intent paramsIntent = new Intent(MainActivity.this, ParametresActivity.class);
+
+                startActivityForResult(paramsIntent,PARAM_CODE);
+
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PARAM_CODE) {
+            if(resultCode == ParametresActivity.UNIT_MODIFIED_CODE){
+                int result=data.getIntExtra("unit",0);
+                if (unites != result) {
+                        unites = result;
+                        adapter.setUnite(unites);
+                        adapter.notifyDataSetChanged();
+                }
+                Toast.makeText(MainActivity.this,"unite "+result,Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 

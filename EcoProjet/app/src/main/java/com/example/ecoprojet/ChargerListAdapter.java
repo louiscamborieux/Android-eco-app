@@ -1,8 +1,7 @@
 package com.example.ecoprojet;
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +9,32 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class ChargerListAdapter extends ArrayAdapter<ChargerLink> {
     private Context mContext;
+    private int unite;
+    private static String METER_ABBR = "m";
+    private static String KILOMETER_ABBR = "km";
 
-    private Location location;
+
+    private static String FOOT_ABBR = "ft";
+    private static String MILE_ABBR = "mi";
+
+    public static float FOOT_METER_RATIO = 3.28084F;
+    public static int FOOT_MILE_RATIO = 5280;
+
+
 
     private  TextView tVDistance;
 
-    public ChargerListAdapter(Context context, int resource,  List<ChargerLink> objects, Location location) {
+    public void setUnite(int unite) {
+        this.unite = unite;
+    }
+
+    public ChargerListAdapter(Context context, int resource, List<ChargerLink> objects, int unite) {
         super(context, resource, objects);
+        this.unite = unite;
         mContext = context;
     }
 
@@ -64,7 +76,31 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerLink> {
         tVDistance = convertView.findViewById(R.id.distanceTextView);
         tVDistance.setVisibility(View.INVISIBLE);
         if (getItem(postion).getDistance() != null) {
-            tVDistance.setText(Math.round(getItem(postion).getDistance())+ "m");
+            double distance =  Math.round(getItem(postion).getDistance());
+
+
+            if (unite == R.id.imperial_choice) {
+                distance = Math.floor(distance* FOOT_METER_RATIO);
+                tVDistance.setText(distance+FOOT_ABBR);
+
+                if (distance > FOOT_MILE_RATIO) {
+                    distance = roundPrecision(distance/FOOT_MILE_RATIO,1);
+                    tVDistance.setText(distance+MILE_ABBR);
+                }
+
+            }else {
+                if(distance > 1000) {
+                    double distanceKM = distance/1000;
+                    long distancePartieEntiere = (long)Math.floor(distanceKM);
+                    long distancePartieDecimale = Math.round((distanceKM - distancePartieEntiere)*10);
+                    tVDistance.setText(""+distancePartieEntiere +','+distancePartieDecimale+ KILOMETER_ABBR);
+                }
+                else {
+                    tVDistance.setText(distance+METER_ABBR);
+                }
+            }
+
+
             tVDistance.setVisibility(View.VISIBLE);
         }
 
@@ -73,6 +109,11 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerLink> {
 
 
         return  convertView;
+    }
+
+    private static double roundPrecision (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.floor(value * scale) / scale;
     }
 }
 

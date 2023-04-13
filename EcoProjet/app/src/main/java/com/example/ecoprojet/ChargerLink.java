@@ -12,6 +12,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ChargerLink {
 
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -67,5 +68,9 @@ public class ChargerLink {
     public Double getDistance() {
         return  distance;
     }
+
+
+
+
 
 }

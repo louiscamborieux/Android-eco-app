@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EcoProjet"
         tools:targetApi="31">
         <activity
+            android:name=".ParametresActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChargerDetailsActivity"
             android:exported="false" />
         <activity
