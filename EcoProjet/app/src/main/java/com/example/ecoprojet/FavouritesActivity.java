@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -36,8 +37,9 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_favourites);
+        super.onCreate(savedInstanceState);
         TextView tvError = findViewById(R.id.no_favorite);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -98,8 +100,13 @@ public class FavouritesActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return  super.onOptionsItemSelected(item);
     }
 }

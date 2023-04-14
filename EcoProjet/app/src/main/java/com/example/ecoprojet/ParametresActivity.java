@@ -70,7 +70,6 @@ public class ParametresActivity extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(ParametresActivity.this,radioButton.getText(),Toast.LENGTH_SHORT).show();
                 returnIntent.putExtra("unit",selectedButton);
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();

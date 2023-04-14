@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLocationChanged(@NonNull Location location) {
-            Log.v(TAG,"loc changé ?");
-            Toast.makeText(MainActivity.this,"lat:" + location.getLatitude()+" long:"+location.getLongitude(),Toast.LENGTH_SHORT).show();
             boolean isLocationAlreadySet = locationUser != null;
             locationUser = location;
 
@@ -160,22 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
         eTSearch = findViewById(R.id.search_bar);
         eTSearch.setEnabled(false);
-        /*
-        DbHelper bdd = new DbHelper(this);
-        SQLiteDatabase db = bdd.getWritableDatabase();
 
-
-        ContentValues values = new ContentValues();
-        values.put("id",1);
-        db.insert("chargers",null,values);
-
-        String[] column = {"id"};
-        String[] valeurs = {"1"};
-        Cursor testCursor = db.query(TABLE_NAME,column,"id=?",valeurs,null,null,"id ASC");
-
-        if (testCursor.moveToFirst()) {
-            Toast.makeText(this,"DB OK "+ testCursor.getString(testCursor.getColumnIndexOrThrow("id")),Toast.LENGTH_SHORT).show();
-        }*/
 
 
         ListView lVChargeurs = findViewById(R.id.listeViewChargeurs);
@@ -324,8 +307,6 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_CODE_LOCATION) {
             if (grantResults.length >0  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this,"ok",Toast.LENGTH_SHORT).show();
-                Log.v (TAG,"ok");
                 getLocation();
             }
             else {
@@ -515,7 +496,6 @@ public class MainActivity extends AppCompatActivity {
                         adapter.setUnite(unites);
                         adapter.notifyDataSetChanged();
                 }
-                Toast.makeText(MainActivity.this,"unite "+result,Toast.LENGTH_SHORT).show();
             }
         }
     }

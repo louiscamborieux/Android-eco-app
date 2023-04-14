@@ -237,7 +237,7 @@ public class ChargerLink implements Parcelable {
         dest.writeString(fields.getIdPdc());
     }
 
-    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+
     public static final Parcelable.Creator<ChargerLink> CREATOR = new Parcelable.Creator<ChargerLink>() {
         public ChargerLink createFromParcel(Parcel in) {
             return new ChargerLink(in);
