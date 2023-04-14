@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">EcoProjet</string>
     <string name="station_name">Nom Station</string>
-    <string name="lat_abbr">lat :</string>
-    <string name="long_abbr">long :</string>
-    <string name="latitude_info">Latitude</string>
-    <string name="longitude_info">Longitude</string>
+    <string name="lat_abbr" translatable="false">lat :</string>
+    <string name="long_abbr" translatable="false">long :</string>
+    <string name="latitude_info" translatable="false">Latitude</string>
+    <string name="longitude_info" translatable="false">Longitude</string>
     <string name="operator_name">Nom Opérateur</string>
     <string name="is_paid">Payant</string>
     <string name="adresse">Adresse</string>
+    <string name="charger">Point de charge</string>
     <string name="not_connected">Vous n\'êtes pas connecté à Internet</string>
     <string name="unable_load_data">Impossible de charger les données</string>
     <string name="empty_info">Connectez-vous à Internet puis rafraichissez la page</string>
@@ -17,22 +18,25 @@
     <string name="enseign_name">Enseigne:</string>
     <string name="operator">Opérateur:</string>
     <string name="amenageur">Aménageur:</string>
-    <string name="station">Station:</string>
+    <string name="station" translatable="false">Station:</string>
     <string name="puiss_max">Puissance max:</string>
     <string name="type_prise">Type prise:</string>
     <string name="availlabillity_info">Disponibillité:</string>
-    <string name="observation">Observations</string>
+    <string name="observation" translatable="false">Observations</string>
     <string name="update_date">Dernière MAJ:</string>
-    <string name="source">Source:</string>
+    <string name="source" translatable="false">Source:</string>
     <string name="is_paid_title">Accès:</string>
-    <string name="info_category_title">Informations</string>
+    <string name="info_category_title" translatable="false">Informations</string>
     <string name="itinerary_maps">Ouvrir itinéraire</string>
     <string name="near_me">Près de moi</string>
-    <string name="cant_locate">Nous ne pouvons pas récupérer les bornes près de vous sans accès à la localisation.</string>
+    <string name="cant_locate">Impossible de récupérer les bornes près de vous sans accès à la localisation.</string>
     <string name="locate_info_need">La localisation est nécessaire pour trouver les bornes près de vous</string>
+    <string name="locate_info_title">Demande d\'accès à la localisation</string>
     <string name="units_info">Type des unités</string>
-    <string name="imperial">mi, ft</string>
-    <string name="metric">km, m</string>
+    <string name="imperial" translatable="false">mi, ft</string>
+    <string name="metric" translatable="false">km, m</string>
     <string name="save">Enregistrer</string>
     <string name="settings">Paramètres</string>
+    <string name="data_loading">Chargement des données...</string>
+    <string name="free_info">Gratuit</string>
 </resources>

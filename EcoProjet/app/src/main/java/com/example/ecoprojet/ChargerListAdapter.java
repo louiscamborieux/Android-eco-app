@@ -68,9 +68,11 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerLink> {
 
         if (données.getAccesRecharge() != null && données.getAccesRecharge().equalsIgnoreCase( "payant")) {
             iVPayant.setImageResource(R.drawable.dollar_sign);
+            tVPayant.setText(R.string.is_paid);
         }
         else {
             iVPayant.setImageResource(R.drawable.dollar_barre);
+            tVPayant.setText(R.string.free_info);
         }
 
         tVDistance = convertView.findViewById(R.id.distanceTextView);

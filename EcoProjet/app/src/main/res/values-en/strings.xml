@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EcoProjet</string>
+    <string name="station_name">Station name</string>
+    <string name="operator_name">Operator Name</string>
+    <string name="is_paid">Paid</string>
+    <string name="adresse">Address</string>
+    <string name="charger">Charging point</string>
+    <string name="not_connected">You are not connected to the Internet</string>
+    <string name="unable_load_data">Unable to load the data</string>
+    <string name="empty_info">Connect to the Internet then refresh the page</string>
+    <string name="refresh_item">Refresh</string>
+    <string name="data_placeholder">&lt;API Data&lt;</string>
+    <string name="pdc_number">Charging point number</string>
+    <string name="enseign_name">Enseign:</string>
+    <string name="operator">Operator:</string>
+    <string name="amenageur">Provider:</string>
+    <string name="puiss_max">Max power:</string>
+    <string name="type_prise">Outlet type:</string>
+    <string name="availlabillity_info">Availabilityy:</string>
+    <string name="update_date">Last Update:</string>
+    <string name="is_paid_title">Access</string>
+    <string name="itinerary_maps">Open itinerary</string>
+    <string name="near_me">Near me</string>
+    <string name="cant_locate">Unable to get charging stations near you without location permission</string>
+    <string name="locate_info_need">Location is needed to find charging stations near you</string>
+    <string name="units_info">Unit type</string>
+    <string name="save">Save</string>
+    <string name="settings">Settings</string>
+    <string name="data_loading">Loading data...</string>
+    <string name="free_info">Free</string>
+    <string name="locate_info_title">Asking for localisation permission</string>
+</resources>

@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     offset += 10;
-                    Toast.makeText(MainActivity.this, "Chargement des données...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.data_loading, Toast.LENGTH_SHORT).show();
                     isDataLoaded = false;
                     parametres.put("offset",offset);
 
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
             parametres.remove("offset");
             remplirDepuisAPI(true,parametres);
             chargement = ProgressDialog.show(this, "",
-                    "Chargement des données...", true);
+                    getResources().getString(R.string.data_loading), true);
             chargement.show();
             tVTexteInfo.setVisibility(View.INVISIBLE);
         } else {
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
     private void demande_permission_location() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-            new AlertDialog.Builder(this).setTitle("test")
+            new AlertDialog.Builder(this).setTitle(R.string.locate_info_need)
                     .setMessage(R.string.locate_info_need)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override

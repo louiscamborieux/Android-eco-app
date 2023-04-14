@@ -34,7 +34,7 @@
         android:id="@+id/unit_choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/units_info"
         android:textSize="20sp"

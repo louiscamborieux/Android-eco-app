@@ -24,6 +24,8 @@ public class ParametresActivity extends AppCompatActivity {
     private RadioButton radioButton;
     public static int UNIT_MODIFIED_CODE = 1;
     public static String UNITS_KEY = "units";
+
+    public static String TAG = "LOG:PARAMETRES";
     public static String PREFERENCES_NAME = "settings";
 
 
@@ -49,7 +51,7 @@ public class ParametresActivity extends AppCompatActivity {
         Integer unites = sharedPreferences.getInt(ParametresActivity.UNITS_KEY,0);
 
 
-        if (unites != null) {
+        if (unites != null && unites != 0) {
             radioButton = findViewById(unites);
         }
         else {
