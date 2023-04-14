@@ -12,8 +12,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "chargeurs.db";
 
     public static final String SQL_CREATE = "CREATE TABLE "+MainActivity.TABLE_NAME+" (id TEXT PRIMARY KEY, amenageur TEXT," +
-            "operateur TEXT, enseigne TEXT, id_station TEXT, nom_station TEXT, adresse_station TEXT, code_insee TEXT," +
-            "longitude REAL, latitude REAL, nbr_pdc INTEGER, id_pdc TEXT, puissance_max REAL, type_prise TEXT, ACCES_RECHARGE TEXT," +
+            "operateur TEXT, enseigne TEXT, id_station TEXT, nom_station TEXT, adresse_station TEXT, code_insee INTEGER," +
+            "longitude REAL, latitude REAL, nbr_pdc INTEGER, id_pdc TEXT, puissance_max REAL, type_prise TEXT, acces_recharge TEXT," +
             "Accessibilite TEXT, observation TEXT, date_maj TEXT, source TEXT, region TEXT, departement TEXT);";
     public static final String SQL_DELETE = "DROP TABLE IF EXISTS Chargers;";
 

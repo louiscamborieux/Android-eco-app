@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
     private int dernierElementAffiche = 0;
     private String sRecherche;
     private Recherche recherche;
+    private Recherche rechercheFree;
+
     private CalculDistanceString calculDistanceString;
     private WhereClauseStringBuilder whereBuilder;
     private EditText eTSearch;
@@ -137,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         parametres = new HashMap<>();
         recherche = new Recherche();
+        rechercheFree = new Recherche();
+        rechercheFree.setGlobalSearchString("gratuit");
         whereBuilder = new WhereClauseStringBuilder();
         whereBuilder.addClause(recherche);
         sharedPreferences = getApplicationContext().getSharedPreferences(ParametresActivity.PREFERENCES_NAME,Context.MODE_PRIVATE);
@@ -156,11 +160,11 @@ public class MainActivity extends AppCompatActivity {
 
         eTSearch = findViewById(R.id.search_bar);
         eTSearch.setEnabled(false);
-
+        /*
         DbHelper bdd = new DbHelper(this);
         SQLiteDatabase db = bdd.getWritableDatabase();
 
-        /*
+
         ContentValues values = new ContentValues();
         values.put("id",1);
         db.insert("chargers",null,values);
@@ -193,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 if (lVChargeurs.getLastVisiblePosition() >= listeChargeurs.size() - 1 && isDataLoaded) {
                     infoReseau = connectivityManager.getActiveNetworkInfo();
                     if (!isConnected(infoReseau)) {
-                        alertNoInternet();
+                        alertNoInternet(MainActivity.this);
                         return;
                     }
                     offset += 10;
@@ -220,6 +224,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent detailIntent = new Intent(MainActivity.this, ChargerDetailsActivity.class);
                 detailIntent.putExtra("id", chargerLinkSelected.getId());
+                infoReseau = connectivityManager.getActiveNetworkInfo();
+
+                detailIntent.putExtra("network", isConnected(infoReseau));
+                if (!isConnected(infoReseau)) {
+                    detailIntent.putExtra("charger",chargerLinkSelected);
+                }
+
                 startActivity(detailIntent);
             }
         });
@@ -257,8 +268,7 @@ public class MainActivity extends AppCompatActivity {
             chargement.show();
             tVTexteInfo.setVisibility(View.INVISIBLE);
         } else {
-            alertNoInternet();
-            tVTexteInfo.setVisibility(View.VISIBLE);
+            alertNoInternet(MainActivity.this);
         }
     }
 
@@ -333,11 +343,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void alertNoInternet() {
-        new AlertDialog.Builder(this)
+    public static void alertNoInternet(Context context) {
+        new AlertDialog.Builder(context)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(this.getString(R.string.unable_load_data))
-                .setMessage(this.getString(R.string.not_connected))
+                .setTitle(context.getString(R.string.unable_load_data))
+                .setMessage(context.getString(R.string.not_connected))
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -398,7 +408,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JsonResponseList> call, Throwable t) {
                 Toast.makeText(MainActivity.this,"Erreur access API", Toast.LENGTH_SHORT).show();
-                tVTexteInfo.setVisibility(View.VISIBLE);
                 if (chargement.isShowing()) {
                     chargement.dismiss();
                 }
@@ -421,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private boolean isConnected (NetworkInfo networkInfo) {
+    public static boolean isConnected (NetworkInfo networkInfo) {
         if (networkInfo == null) {
             return false;
         }
@@ -437,12 +446,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
+
+
         switch (item.getItemId()) {
             case R.id.refresh_menu_item: {
                 infoReseau = connectivityManager.getActiveNetworkInfo();
                 afficherDonnées(infoReseau);
                 break;
             }
+            case  R.id.only_free_checkbox: {
+                if (!item.isChecked()) {
+                    whereBuilder.addClause(rechercheFree);
+                    parametres.put("where",whereBuilder.getString());
+                    item.setChecked(true);
+                    infoReseau = connectivityManager.getActiveNetworkInfo();
+                    afficherDonnées(infoReseau);
+                }
+                else {
+                    whereBuilder.removeClause(rechercheFree);
+                    parametres.put("where",whereBuilder.getString());
+                    item.setChecked(false);
+                    infoReseau = connectivityManager.getActiveNetworkInfo();
+                    afficherDonnées(infoReseau);
+                }
+        break;}
             case R.id.locals_chargers_item:{
                 if (isLocationEnabled) {
                     Toast.makeText(this,"localisation désactivée",Toast.LENGTH_SHORT).show();
@@ -463,7 +490,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent paramsIntent = new Intent(MainActivity.this, ParametresActivity.class);
 
                 startActivityForResult(paramsIntent,PARAM_CODE);
+                break;
 
+            }
+            case R.id.favorites_menu_item: {
+                Intent favoritesIntent = new Intent(MainActivity.this,FavouritesActivity.class);
+
+                startActivity(favoritesIntent);
+                break;
             }
         }
         return super.onOptionsItemSelected(item);

@@ -39,4 +39,17 @@
     <string name="settings">Paramètres</string>
     <string name="data_loading">Chargement des données...</string>
     <string name="free_info">Gratuit</string>
+    <string name="favorite">Favoris</string>
+    <string name="add_favorite">Ajouter aux favoris</string>
+    <string name="remove_favorite">Retirer des favoris</string>
+    <string name="favorite_added_text">Favori ajouté</string>
+    <string name="favorite_removed_text">Favori supprimé</string>
+    <string name="no_favorite">Aucun favori enregistré</string>
+    <string name="only_free">Gratuits uniquement</string>
+
+
+
+
+
+
 </resources>

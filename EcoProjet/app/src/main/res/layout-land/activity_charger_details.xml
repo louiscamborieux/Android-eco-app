@@ -52,31 +52,31 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/operateur_titre"
                 app:layout_constraintTop_toTopOf="@+id/operateur_titre"
-                app:layout_constraintWidth_percent="0.70" />
+                app:layout_constraintWidth_percent="0.35" />
 
             <TextView
                 android:id="@+id/adresse"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:drawableLeft="@drawable/map_marker_resize"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="@string/adresse"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/amenageur_titre"
                 app:layout_constraintTop_toBottomOf="@+id/amenageur_titre"
-                app:layout_constraintWidth_percent="0.9" />
+                app:layout_constraintWidth_percent="0.45" />
 
             <TextView
                 android:id="@+id/source_titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="69dp"
-                android:layout_marginBottom="10px"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/source"
                 android:textIsSelectable="true"
                 android:textSize="16sp"
@@ -88,25 +88,25 @@
 
             <TextView
                 android:id="@+id/source_data"
-                android:layout_centerVertical="true"
-                app:layout_constraintWidth_percent="0.85"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:autoLink="web"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:singleLine="true"
                 android:text="@string/data_placeholder"
                 android:textIsSelectable="true"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/source_titre"
-                app:layout_constraintStart_toEndOf="@+id/source_titre" />
+                app:layout_constraintStart_toEndOf="@+id/source_titre"
+                app:layout_constraintWidth_percent="0.90" />
 
             <TextView
                 android:id="@+id/enseigne_titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/enseign_name"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
@@ -116,12 +116,15 @@
 
             <TextView
                 android:id="@+id/enseigne_data"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="@string/data_placeholder"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintWidth_percent="0.35"
                 app:layout_constraintStart_toEndOf="@+id/enseigne_titre"
                 app:layout_constraintTop_toTopOf="@+id/enseigne_titre" />
 
@@ -129,12 +132,11 @@
                 android:id="@+id/section_info_titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="@string/info_category_title"
                 android:textSize="27sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/adresse"
-                app:layout_constraintTop_toBottomOf="@+id/adresse" />
+                app:layout_constraintStart_toEndOf="@+id/operateur_data"
+                app:layout_constraintTop_toTopOf="@+id/operateur_data" />
 
             <TextView
                 android:id="@+id/nb_pdc_titre"
@@ -278,12 +280,13 @@
                 android:id="@+id/observation_titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/observation"
                 android:textIsSelectable="true"
                 android:textSize="27sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/dispo_titre"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dispo_titre" />
 
             <TextView
@@ -303,19 +306,20 @@
                 android:id="@+id/itinerary_button"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
                 android:drawableLeft="@drawable/maps_logo_resize"
                 android:text="@string/itinerary_maps"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favorite_button"
-                app:layout_constraintWidth_percent="0.75" />
+                app:layout_constraintTop_toBottomOf="@+id/observations_data"
+                app:layout_constraintWidth_percent="0.45" />
 
             <TextView
                 android:id="@+id/amenageur_titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:text="@string/amenageur"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
@@ -325,14 +329,19 @@
 
             <TextView
                 android:id="@+id/amenageur_data"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="@string/data_placeholder"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 app:layout_constraintStart_toEndOf="@+id/amenageur_titre"
-                app:layout_constraintTop_toTopOf="@+id/amenageur_titre" />
+                app:layout_constraintTop_toTopOf="@+id/amenageur_titre"
+                app:layout_constraintWidth_percent="0.32" />
+
+
 
             <TextView
                 android:id="@+id/debug_id"
@@ -347,24 +356,17 @@
                 android:id="@+id/favorite_button"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginStart="24dp"
                 android:drawableLeft="@drawable/favorite_icon"
                 android:text="@string/add_favorite"
                 android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/itinerary_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/observations_data"
-                app:layout_constraintWidth_percent="0.75" />
+                app:layout_constraintWidth_percent="0.45" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,10 +7,10 @@
     android:padding="4dp">
 
     <ImageView
-        android:id="@+id/icon_map"
+        android:id="@+id/ispaidImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:srcCompat="@android:drawable/ic_dialog_map" />
+        app:srcCompat="@drawable/electric_vehicle_charging_station_icon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -94,7 +94,7 @@
             android:id="@+id/distanceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="5dp"
             android:text="@string/data_placeholder"
             app:layout_constraintBottom_toBottomOf="parent"

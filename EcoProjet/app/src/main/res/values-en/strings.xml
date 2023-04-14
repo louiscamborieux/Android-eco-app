@@ -19,7 +19,7 @@
     <string name="type_prise">Outlet type:</string>
     <string name="availlabillity_info">Availabilityy:</string>
     <string name="update_date">Last Update:</string>
-    <string name="is_paid_title">Access</string>
+    <string name="is_paid_title">Access:</string>
     <string name="itinerary_maps">Open itinerary</string>
     <string name="near_me">Near me</string>
     <string name="cant_locate">Unable to get charging stations near you without location permission</string>
@@ -30,4 +30,11 @@
     <string name="data_loading">Loading data...</string>
     <string name="free_info">Free</string>
     <string name="locate_info_title">Asking for localisation permission</string>
+    <string name="favorite">Favorites</string>
+    <string name="add_favorite">Add to favorites</string>
+    <string name="remove_favorite">Remove from favorites</string>
+    <string name="favorite_added_text">Added to favorites</string>
+    <string name="favorite_removed_text">Added to favorites</string>
+    <string name="no_favorite">You have no favorite saved</string>
+    <string name="only_free">Free only</string>
 </resources>

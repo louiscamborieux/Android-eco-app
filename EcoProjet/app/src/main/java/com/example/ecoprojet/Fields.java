@@ -65,7 +65,7 @@ public class Fields {
     private String codeInseeCommune;
     @SerializedName("region")
     @Expose
-    private Object region;
+    private String region;
     @SerializedName("departement")
     @Expose
     private String departement;
@@ -223,11 +223,11 @@ public class Fields {
         this.codeInseeCommune = codeInseeCommune;
     }
 
-    public Object getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(Object region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 
@@ -239,4 +239,30 @@ public class Fields {
         this.departement = departement;
     }
 
+    @Override
+    public String toString() {
+        return "Fields{" +
+                "nAmenageur='" + nAmenageur + '\'' +
+                ", nOperateur='" + nOperateur + '\'' +
+                ", nEnseigne='" + nEnseigne + '\'' +
+                ", idStation='" + idStation + '\'' +
+                ", nStation='" + nStation + '\'' +
+                ", adStation='" + adStation + '\'' +
+                ", codeInsee=" + codeInsee +
+                ", xlongitude=" + xlongitude +
+                ", ylatitude=" + ylatitude +
+                ", nbrePdc=" + nbrePdc +
+                ", idPdc='" + idPdc + '\'' +
+                ", puissMax=" + puissMax +
+                ", typePrise='" + typePrise + '\'' +
+                ", accesRecharge='" + accesRecharge + '\'' +
+                ", accessibilite='" + accessibilite + '\'' +
+                ", observations='" + observations + '\'' +
+                ", dateMaj='" + dateMaj + '\'' +
+                ", source='" + source + '\'' +
+                ", codeInseeCommune='" + codeInseeCommune + '\'' +
+                ", region='" + region + '\'' +
+                ", departement='" + departement + '\'' +
+                '}';
+    }
 }
